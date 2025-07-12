@@ -8,13 +8,13 @@ class BMICalculator extends StatefulWidget {
   State<BMICalculator> createState() => _BMICalculatorState();
 }
 
-class _BMICalculatorState extends State<BMICalculator> {
+class _BMICalculatorState extends State<BMICalculator> {//read inputs
   final heightController = TextEditingController();
   final weightController = TextEditingController();
   String result = "";
 
   void calculateBMI() {
-    final height = double.tryParse(heightController.text);
+    final height = double.tryParse(heightController.text); //take data
     final weight = double.tryParse(weightController.text);
 
     if (height != null && weight != null && height > 0) {
@@ -31,7 +31,7 @@ class _BMICalculatorState extends State<BMICalculator> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( //build UI
       appBar: AppBar(title: const Text("BMI Calculator")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,7 +54,7 @@ class _BMICalculatorState extends State<BMICalculator> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: calculateBMI,
-              child: const Text("Calculate"),
+              child: const Text("Calculate BMI"),
             ),
             const SizedBox(height: 20),
             Text(
