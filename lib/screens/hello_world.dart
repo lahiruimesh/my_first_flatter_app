@@ -7,11 +7,13 @@ class HelloWorld extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Hello World',
+        child: Text('Hello World'
+        '\nWelcome to Flutter',
+          textAlign: TextAlign.center,
         style: TextStyle(
-          fontSize: 48,
-          color: Colors.blue,
-          fontWeight: FontWeight.bold,
+            fontSize: 32,
+            color: Colors.blue,
+            fontWeight: FontWeight.bold
         ),
         ),
       ),

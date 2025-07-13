@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 //import 'screens/bmi_calculator.dart';
 //import 'screens/landing_page.dart';
-import 'screens/hello_world.dart';
+//import 'screens/hello_world.dart';
+//import 'screens/columns.dart';
+//import 'screens/buttons.dart';
+import 'screens/add_user_page.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  
+  runApp(MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Lahiru\'s First App',
-      home: const HelloWorld(),
+      home: const AddUserPage(),
     );
   }
 }
