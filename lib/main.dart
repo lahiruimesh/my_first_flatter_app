@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart'; //Initializes Firebase core services in app
 //import 'screens/bmi_calculator.dart';
 //import 'screens/landing_page.dart';
 //import 'screens/hello_world.dart';

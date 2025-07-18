@@ -6,20 +6,20 @@ class ReadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference names = FirebaseFirestore.instance.collection('names');
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Read Names from Firestore'),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: names.snapshots(),
+        stream: users.snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No names found.'));
+            return const Center(child: Text('No users found.'));
           }
 
           final docs = snapshot.data!.docs;
@@ -28,9 +28,12 @@ class ReadPage extends StatelessWidget {
             itemCount: docs.length,
             itemBuilder: (context, index) {
               var data = docs[index];
+              String name = data['name'];
+              int age = data['age'];
               return Card(
                 child: ListTile(
-                  title: Text(data['name']),
+                  title: Text(name),
+                  subtitle: Text('$age'),
                 ),
               );
             },

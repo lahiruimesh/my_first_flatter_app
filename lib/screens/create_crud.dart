@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'read_crud.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; //connect  flutter app to Firestore Database
 
 class CreatePage extends StatefulWidget {
   const CreatePage({super.key});
@@ -10,20 +10,29 @@ class CreatePage extends StatefulWidget {
 }
 
 class _CreatePageState extends State<CreatePage> {
-  final TextEditingController _controller = TextEditingController();
+  //Controllers to Handle Inputs
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _ageController = TextEditingController();
 
-  final CollectionReference names = FirebaseFirestore.instance.collection(
-    'names',
+  //Firestore Collection Reference
+  final CollectionReference users = FirebaseFirestore.instance.collection(
+    'users',
   );
 
-  void addName() async {
-    if (_controller.text.isNotEmpty) {
-      await names.add({'name': _controller.text});
-      print("✅ Name Added: ${_controller.text}");
+  void addUser() async {
+    String name = _nameController.text;
+    String ageText = _ageController.text;
+
+    if (name.isNotEmpty && ageText.isNotEmpty) {
+      int age = int.tryParse(ageText) ?? 0; // Converts string to int safely
+
+      await users.add({'name': name, 'age': age});
+
       ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Name Added')));
-      _controller.clear();
+        context
+      ).showSnackBar(const SnackBar(content: Text('User Added')));
+      _nameController.clear();
+      _ageController.clear();
     }
   }
 
@@ -35,14 +44,24 @@ class _CreatePageState extends State<CreatePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              controller: _controller,
+              controller: _nameController,
               decoration: InputDecoration(
                 labelText: 'Enter the name :',
                 border: OutlineInputBorder(),
               ),
             ),
+
+            SizedBox(height : 20),
+            TextField(
+              controller: _ageController,
+              decoration: InputDecoration(
+                labelText: 'Enter your Age :',
+                border: OutlineInputBorder(),
+              ),
+            ),
+
             SizedBox(height: 20),
-            ElevatedButton(onPressed: addName, child: Text('Add Name')),
+            ElevatedButton(onPressed: addUser, child: Text('Add User')),
 
             SizedBox(height: 50),
             ElevatedButton(
@@ -52,7 +71,7 @@ class _CreatePageState extends State<CreatePage> {
                   MaterialPageRoute(builder: (context) => ReadPage()),
                 );
               },
-              child: Text('Read Names'),
+              child: Text('Read Users'),
             ),
           ],
         ),
